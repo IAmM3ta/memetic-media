@@ -17,6 +17,11 @@ from html import escape as e
 ROOT = Path(__file__).resolve().parent.parent
 TODAY = datetime.date(2026, 11, 23).isoformat()
 CONTACT = 'robert@agentops.studio'   # already public on agentops.studio
+# Free 20-row teardown (2026-11-24): prefilled mailto, no backend. & is HTML-escaped for attributes.
+TEARDOWN_MAIL = ("mailto:robert@agentops.studio?subject=Free%2020-row%20teardown%20(LedgerWright)&amp;body=Hi%20Robert%2C%0D%0A%0D%0A"
+                 "What%20the%20file%20is%3A%20%0D%0ARough%20number%20of%20rows%3A%20%0D%0AWhat%20the%20clean%20file%20needs%20to%20do%3A%20%0D%0A%0D%0A"
+                 "Up%20to%2020%20rows%20pasted%20below%20or%20attached%20(dummy%20data%20is%20fine)%3A%0D%0A")
+RESCUE_PAY = 'https://square.link/u/rX4tuObB'   # $150 Spreadsheet Rescue, same link as agentops.studio
 
 # ---- every site in the network: the single source for cross-links ----
 NET = [
@@ -263,7 +268,7 @@ LW_PRODUCTS = [
 def build_ledgerwright():
     s = dict(key='ledgerwright', repo='ledgerwright-templates', name='LedgerWright templates', wordmark='LedgerWright',
              url=URL['ledgerwright'], theme='theme-paper', theme_color='#0f5a4a', og_alt='LedgerWright templates: know your numbers',
-             nav=[('Templates', '#templates'), ('How it works', '#how'), ('FAQ', '#faq'), ('Done-for-you', URL['agentops'])])
+             nav=[('Templates', '#templates'), ('How it works', '#how'), ('Free teardown', '#rescue'), ('FAQ', '#faq'), ('Done-for-you', URL['agentops'])])
     org = {"@type": "Organization", "@id": URL['ledgerwright'] + "#org", "name": "LedgerWright", "url": URL['ledgerwright'],
            "logo": URL['ledgerwright'] + "assets/icon-512.png", "parentOrganization": ORG_HUB}
     s['jsonld'] = {"@context": "https://schema.org", "@graph": [org] + [
@@ -284,7 +289,7 @@ def build_ledgerwright():
 </article>"""
     body = hero(s, 'LedgerWright templates', 'Know your numbers in ten minutes a week.',
                 'Spreadsheet templates for freelancers, small shops and contractors. Every number is a live formula. No macros, no subscription, no accounting software.',
-                [('See the templates', '#templates', 'btn-primary'), ('How it works', '#how', 'btn-ghost')], '') + f"""
+                [('See the templates', '#templates', 'btn-primary'), ('File too messy? Free teardown', '#rescue', 'btn-ghost')], '') + f"""
 <!-- Product cards. Prices: Cash Flow $14, Job-Cost $14, Bundle $24 (keep in sync with JSON-LD in build.py). -->
 <section class="band" id="templates">
   <div class="wrap">
@@ -309,6 +314,16 @@ def build_ledgerwright():
       <dt>Delivery</dt><dd>Instant download after checkout</dd>
       <dt>Refunds</dt><dd>File won't open or doesn't match? Fix or full refund within 14 days.</dd>
     </dl>
+  </div>
+</section>
+<!-- Free teardown + $150 Rescue CTA (added 2026-11-24). Remove this section, its nav item and hero button to revert. -->
+<section class="band alt" id="rescue">
+  <div class="wrap">
+    <p class="kicker">Done-for-you</p>
+    <h2>Your file too messy for a template?</h2>
+    <p class="sub">Send 20 rows of the spreadsheet you have now. Dummy data is fine. Within one business day you get a free 10-minute teardown: what is broken, what a clean version looks like, and a fixed price. A full cleanup of up to 500 rows is a flat $150, back in 48 hours, with every repair labeled and nothing invented.</p>
+    <div class="actions"><a class="btn btn-primary" href="{TEARDOWN_MAIL}">Email 20 rows for a free teardown</a><a class="btn btn-ghost" href="{RESCUE_PAY}" target="_blank" rel="noopener noreferrer">Book the $150 Rescue</a></div>
+    <p class="fine">Leave out Social Security numbers, full card or bank numbers and passwords. Run by Robert at <a href="{URL['agentops']}">Agent Ops Studio</a>. Not tax, legal or accounting advice.</p>
   </div>
 </section>
 <section class="band" id="faq">
