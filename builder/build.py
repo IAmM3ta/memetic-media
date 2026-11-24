@@ -324,8 +324,8 @@ def build_ledgerwright():
     <p class="fine">A planning and record-keeping tool, not tax, legal or accounting advice. Digital download only.</p>
   </div>
 </section>"""
-    write(s, body, 'LedgerWright Templates | Cash Flow & Job-Cost Trackers for Excel and Google Sheets',
-          'Cash flow, bookkeeping and job-cost spreadsheet templates for freelancers, small shops and contractors. Excel + Google Sheets, no macros, from $14.')
+    write(s, body, 'Google Sheets & Excel Cash Flow Tracker and Job Cost Templates | LedgerWright',
+          'Cash flow tracker and job cost spreadsheet templates for small business, freelancers and contractors. Excel + Google Sheets, live formulas, no macros. From $14.')
 
 # =====================================================================
 # 3) Memetic Visuals (Loops Vol. 1, buy button is a placeholder)
