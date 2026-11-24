@@ -239,22 +239,25 @@ def build_hub():
           'Memetic Media is a studio for living visuals, generative 3D-printed objects and human-gated AI systems. Explore Agent Ops Studio, LedgerWright, Memetic Visuals, LiTHOS and MORPHOS.')
 
 # =====================================================================
-# 2) LedgerWright templates (standalone page; Gumroad links are placeholders)
+# 2) LedgerWright templates (standalone page; Gumroad checkout)
 # =====================================================================
+# Live product links, verified 2026-11-23: Cash Flow $14, Job-Cost $14,
+# Bundle $24. Do not change prices without approval. Public only after
+# a merge to main (GitHub Pages deploys from main).
 LW_PRODUCTS = [
-    # key, name, price, pitch, bullets, placeholder token
+    # key, name, price, pitch, bullets, gumroad_url
     ('cashflow', 'Cash Flow & Bookkeeping Tracker', 14,
      'A calm, one-file bookkeeping system for freelancers, solopreneurs and small shops.',
      ['Monthly dashboard: income, expenses, net profit, margin', 'Invoice tracker that flags Paid, Due and Overdue', 'Tax set-aside planner by quarter', '27 ready-made categories'],
-     'GUMROAD_URL_CASHFLOW'),
+     'https://ledgerwright.gumroad.com/l/cashflow-tracker'),
     ('jobcost', 'Job-Cost & Supplier Bill Tracker', 14,
      'Budget vs actual for every job, by cost type. Built for contractors and trades.',
      ['Bills, labor and change orders tagged by job', 'OVER / WATCH / OK flags per cost type', 'Projected profit and margin per job', 'Portfolio view across every job'],
-     'GUMROAD_URL_JOBCOST'),
+     'https://ledgerwright.gumroad.com/l/job-cost-tracker'),
     ('bundle', 'The LedgerWright Bundle', 24,
      'Both trackers: one for the whole business, one for every job. Save $4.',
      ['Cash Flow + Job-Cost workbooks', 'EXAMPLE and BLANK versions of each', 'Quick-Start Guides (PDF)', 'Best value for project businesses'],
-     'GUMROAD_URL_BUNDLE'),
+     'https://ledgerwright.gumroad.com/l/ledgerwright-bundle'),
 ]
 
 def build_ledgerwright():
@@ -266,20 +269,18 @@ def build_ledgerwright():
     s['jsonld'] = {"@context": "https://schema.org", "@graph": [org] + [
         {"@type": "Product", "name": f"LedgerWright {n} (Excel + Google Sheets)", "description": p,
          "image": URL['ledgerwright'] + f"assets/{k}.webp", "brand": {"@type": "Brand", "name": "LedgerWright"},
-         "offers": {"@type": "Offer", "price": f"{pr}.00", "priceCurrency": "USD", "seller": {"@id": URL['ledgerwright'] + "#org"}}}
-        for k, n, pr, p, _, _ in LW_PRODUCTS]}
+         "offers": {"@type": "Offer", "url": u, "price": f"{pr}.00", "priceCurrency": "USD", "seller": {"@id": URL['ledgerwright'] + "#org"}}}
+        for k, n, pr, p, _, u in LW_PRODUCTS]}
     prods = ''
-    for k, n, pr, p, bullets, tok in LW_PRODUCTS:
+    for k, n, pr, p, bullets, url in LW_PRODUCTS:
         lis = ''.join(f'<li>{e(b)}</li>' for b in bullets)
         prods += f"""<article class="card" id="{k}">
   <img src="assets/{k}.webp" width="960" height="540" loading="lazy" decoding="async" alt="{e(n)}: dashboard preview with sample data">
   <div class="body"><span class="tag">Excel + Google Sheets</span><h3>{e(n)}</h3><p>{e(p)}</p>
   <ul class="list">{lis}</ul>
   <p class="price">${pr} <small>one-time, instant download</small></p>
-  <!-- PLACEHOLDER: {tok}. Gumroad is not published yet. Replace this <span> with
-       <a class="btn btn-primary" href="https://...gumroad.com/l/...">Buy {e(n)} on Gumroad</a> -->
-  <span class="btn" aria-disabled="true" data-placeholder="{tok}">Gumroad checkout coming soon</span>
-  <a class="go" href="{mailto('LedgerWright ' + n + ' - notify me')}">Email me when {e(n)} is ready</a></div>
+  <!-- Gumroad checkout: {url}. Prices stay $14 / $14 / $24. -->
+  <a class="btn btn-primary" href="{url}" target="_blank" rel="noopener noreferrer">Buy on Gumroad</a></div>
 </article>"""
     body = hero(s, 'LedgerWright templates', 'Know your numbers in ten minutes a week.',
                 'Spreadsheet templates for freelancers, small shops and contractors. Every number is a live formula. No macros, no subscription, no accounting software.',
@@ -290,7 +291,6 @@ def build_ledgerwright():
     <p class="kicker">Templates</p>
     <h2>Three ways to get your books straight</h2>
     <p class="sub">Each download includes an EXAMPLE file filled with realistic sample data and a BLANK file for your own numbers, plus a one-page Quick-Start Guide.</p>
-    <p class="placeholder-note">Checkout opens on Gumroad shortly. Gumroad handles payment, sales tax and the instant download.</p>
     <div class="grid">{prods}</div>
   </div>
 </section>

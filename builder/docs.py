@@ -123,19 +123,17 @@ python3 assets.py && python3 build.py && python3 docs.py
 """, sources='Loop stills from Loops Vol. 1; archive art cropped from the studio\'s own posts; branch cards reuse each branch\'s own art.'),
  'ledgerwright-templates': dict(name='LedgerWright templates', url='https://iamm3ta.github.io/ledgerwright-templates/',
    what='Standalone sales page for the LedgerWright spreadsheet templates: Cash Flow & Bookkeeping ($14), Job-Cost & Supplier Bill ($14), Bundle ($24).',
-   extra="""## Gumroad placeholders (swap when Gumroad is published)
+   extra="""## Gumroad checkout
 
-Each product card has a disabled button marked with an HTML comment and a `data-placeholder` token:
+Each product card has a "Buy on Gumroad" button. Prices are unchanged: Cash Flow $14, Job-Cost $14, Bundle $24.
 
-| Token | Product | Price | Planned Gumroad permalink |
-|---|---|---|---|
-| `GUMROAD_URL_CASHFLOW` | Cash Flow & Bookkeeping Tracker | $14 | `cashflow-tracker` |
-| `GUMROAD_URL_JOBCOST` | Job-Cost & Supplier Bill Tracker | $14 | `job-cost-tracker` |
-| `GUMROAD_URL_BUNDLE` | The LedgerWright Bundle | $24 | `ledgerwright-bundle` |
+| Product | Price | URL |
+|---|---|---|
+| Cash Flow & Bookkeeping Tracker | $14 | https://ledgerwright.gumroad.com/l/cashflow-tracker |
+| Job-Cost & Supplier Bill Tracker | $14 | https://ledgerwright.gumroad.com/l/job-cost-tracker |
+| The LedgerWright Bundle | $24 | https://ledgerwright.gumroad.com/l/ledgerwright-bundle |
 
-To go live: in `builder/build.py` (memetic-media repo) replace the `<span ... aria-disabled="true">` with a real
-`<a class="btn btn-primary" href="...">` link, add `"url"` to each Product offer in the JSON-LD, rebuild and push.
-Or edit `index.html` here directly and note it in the CHANGELOG.
+JSON-LD Product offers include the same `url`. If a link changes, edit `LW_PRODUCTS` in `builder/build.py` (memetic-media repo), rebuild, and commit. Do not change prices without approval. GitHub Pages publishes only from `main`.
 
 ## Why a standalone page
 
